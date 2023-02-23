@@ -1,0 +1,194 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'assets/style.css' %}">
+
+</head>
+
+<body>
+<div class="background-image">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <div class="upload-section hover-2">
+                    <h2>Type Text </h2>
+                    <form method="post" action="{% url 'emotionDetection:text_input' %}"> {% csrf_token %}
+                        <div class="form-group">
+                            <label for="text-file-upload">Select file to upload:</label>
+                            <textarea type=" text" name="text" placeholder="Enter text..." class="form-control-file"
+                                      oninput="auto_grow(this)"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-5">
+                <div class="upload-section hover-2">
+                    <h2>Upload Video File</h2>
+                    <form>
+                        <div class="form-group">
+                            <label for="video-file-upload">Select file to upload:</label>
+                            <input type="file" id="video-file-upload" name="video-file-upload"
+                                   class="form-control-file">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit.</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% if title != 'Emotion Detection' %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 pt-5">
+                <h2>Result </h2>
+                <div class="progress-group">
+                    {% for result in results %}
+                    <div class="progress-group-header">
+                        <i class="cil-user progress-group-icon"></i>
+                        <div>{{ result.label }}</div>
+                        <div class="ml-auto font-weight-bold">{{ result.score }}%</div>
+                    </div>
+                    <div class="progress-group-bars">
+                        <div class="progress progress-xs">
+                            <div class="progress-bar  bg-dark " role="progressbar" style="width: {{ result.score }}%" aria-valuenow="{{ result.score }}"
+                                 aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    {% endfor %}
+{#                    <div class="progress-group-header">#}
+{#                        <i class="cil-user progress-group-icon"></i>#}
+{#                        <div>Topic-2</div>#}
+{#                        <div class="ml-auto font-weight-bold">43%</div>#}
+{#                    </div>#}
+{#                    <div class="progress-group-bars">#}
+{#                        <div class="progress progress-xs">#}
+{#                            <div class="progress-bar bg-dark" role="progressbar" style="width: 43%" aria-valuenow="43"#}
+{#                                 aria-valuemin="0" aria-valuemax="100"></div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="progress-group-header">#}
+{#                        <i class="cil-user progress-group-icon"></i>#}
+{#                        <div>Topic-3</div>#}
+{#                        <div class="ml-auto font-weight-bold">43%</div>#}
+{#                    </div>#}
+{#                    <div class="progress-group-bars">#}
+{#                        <div class="progress progress-xs">#}
+{#                            <div class="progress-bar bg-dark" role="progressbar" style="width: 43%" aria-valuenow="43"#}
+{#                                 aria-valuemin="0" aria-valuemax="100"></div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="progress-group-header">#}
+{#                        <i class="cil-user progress-group-icon"></i>#}
+{#                        <div>Topic-4</div>#}
+{#                        <div class="ml-auto font-weight-bold">43%</div>#}
+{#                    </div>#}
+{#                    <div class="progress-group-bars">#}
+{#                        <div class="progress progress-xs">#}
+{#                            <div class="progress-bar bg-dark" role="progressbar" style="width: 43%" aria-valuenow="43"#}
+{#                                 aria-valuemin="0" aria-valuemax="100"></div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="progress-group-header">#}
+{#                        <i class="cil-user progress-group-icon"></i>#}
+{#                        <div>Topic-5</div>#}
+{#                        <div class="ml-auto font-weight-bold">43%</div>#}
+{#                    </div>#}
+{#                    <div class="progress-group-bars">#}
+{#                        <div class="progress progress-xs">#}
+{#                            <div class="progress-bar bg-dark" role="progressbar" style="width: 43%" aria-valuenow="43"#}
+{#                                 aria-valuemin="0" aria-valuemax="100"></div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="progress-group-header">#}
+{#                        <i class="cil-user progress-group-icon"></i>#}
+{#                        <div>Topic-6</div>#}
+{#                        <div class="ml-auto font-weight-bold">43%</div>#}
+{#                    </div>#}
+{#                    <div class="progress-group-bars">#}
+{#                        <div class="progress progress-xs">#}
+{#                            <div class="progress-bar bg-dark" role="progressbar" style="width: 43%" aria-valuenow="43"#}
+{#                                 aria-valuemin="0" aria-valuemax="100"></div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="progress-group-header">#}
+{#                        <i class="cil-user progress-group-icon"></i>#}
+{#                        <div>Topic-7</div>#}
+{#                        <div class="ml-auto font-weight-bold">43%</div>#}
+{#                    </div>#}
+{#                    <div class="progress-group-bars">#}
+{#                        <div class="progress progress-xs">#}
+{#                            <div class="progress-bar bg-dark" role="progressbar" style="width: 43%" aria-valuenow="43"#}
+{#                                 aria-valuemin="0" aria-valuemax="100"></div>#}
+{#                        </div>#}
+{#                    </div>#}
+                </div>
+            </div>
+
+
+            <div class="col-md-6 pt-5">
+                <h2>Text </h2>
+                <div class="card bg-light mb-3 " style="max-width: 350rem;">
+                    <div class="card-header">This text sounds like {{ top.label }}</div>
+                    <div class="card-body">
+{#                        <h5 class="card-title">Light card title</h5>#}
+                        <p class="card-text">{{ text }}</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+
+
+
+
+<footer class="bg-light text-center text-lg-start pt-5">
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        © 2023 Copyright:
+        <a class="text-dark" href="#">Sadman team </a>
+    </div>
+    <!-- Copyright -->
+</footer>
+
+
+<script>
+    function auto_grow(element) {
+        element.style.height = "5px";
+        element.style.height = (element.scrollHeight) + "px";
+    }
+
+    var wordLen = 255; // Maximum word length
+    function checkWordLen(obj) {
+        var len = obj.value.split(/[\s]+/);
+        if (len.length > wordLen) {
+            alert("You cannot put more than " + wordLen + " words in this text area.");
+            obj.oldValue = obj.value != obj.oldValue ? obj.value : obj.oldValue;
+            obj.value = obj.oldValue ? obj.oldValue : "";
+            return false;
+        }
+        return true;
+    }
+</script>
+
+
+<script type="text/javascript" src="{% static 'assets/myscripts.js' %}"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper-core.min.js"
+        integrity="sha384-YDUJ9mJbz7QKsJfbhIXDPeFbUwMNl0eBb0LykrBWUPOGeMdTBl0LxOJKfwWq3giH"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
