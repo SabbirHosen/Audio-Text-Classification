@@ -23,5 +23,17 @@ def text_input(request):
         }
         # print(data)
         return render(request, 'index.html', context=data)
+        # return redirect('emotionDetection:home')
     return redirect('emotionDetection:home')
 
+
+# def processing(request, text):
+#     results = text_to_emotion(text)
+#     data = {
+#         'title': 'Result of Emotion Detection',
+#         'results': results,
+#         'text': text,
+#         'top': results[0]
+#     }
+#     # print(data)
+#     return render(request, 'index.html', context=data)
