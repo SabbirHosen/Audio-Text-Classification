@@ -10,16 +10,21 @@ import shutil
 
 # create a speech recognition object
 r = sr.Recognizer()
+# To convert mp3 file format in WAV format we need ffmpeg for pydub
 pydub.AudioSegment.ffmpeg = "C:\\Users\\sabbi\\AppData\\Local\\ffmpegio\\ffmpeg-downloader\\ffmpeg\\bin"
 
 
 def text_to_emotion(text):
-    # t = ' '.join([x for x in text.split(' ')[0:500]])
-    # print(len(t.split()))
+    """
+    :param text: str
+    :return: dict
+    Creating pipeline from Huggingface transformers model emotion classification
+    model and tokenizer used from Huggingface Hub
+    """
     model = AutoModelForSequenceClassification.from_pretrained("j-hartmann/emotion-english-distilroberta-base")
     tokenizer = AutoTokenizer.from_pretrained("j-hartmann/emotion-english-distilroberta-base")
     classifier = pipeline("text-classification", model=model, tokenizer=tokenizer, top_k=None)
-    result = [{'label': r['label'], 'score': round((r['score'] * 100), 3)} for r in classifier(text)[0]]
+    result = [{'label': r['label'], 'score': round((r['score'] * 100), 2)} for r in classifier(text)[0]]
     return result
 
 
@@ -31,9 +36,7 @@ def get_large_audio_transcription(path):
     and apply speech recognition on each of these chunks
     """
     # open the audio file using pydub
-    # sound = AudioSegment.from_mp3('E:/NSU Project/project/audioTextClassification/media/audio/Back_Home.mp3')
     sound = AudioSegment.from_mp3(path)
-    # with open('../media/audio/death.mp3') as file:
     # split audio sound where silence is 700 miliseconds or more and get chunks
     chunks = split_on_silence(sound,
                               # experiment with this value for your target audio file
@@ -61,13 +64,13 @@ def get_large_audio_transcription(path):
             try:
                 text = r.recognize_google(audio_data=audio_listened)
             except sr.UnknownValueError as e:
-                # print("Error:", str(e))
-                pass
+                print("Error:", str(e))
             else:
                 # text = f"{text.capitalize()}. "
                 # print(chunk_filename, ":", text)
                 whole_text += ' ' + str(text)
-    # return the text for all chunks detected
+    # delete the directory that contains chucks of audio after processing
     if os.path.isdir(folder_name):
         shutil.rmtree(folder_name, ignore_errors=True)
+    # return the text for all chunks detected
     return whole_text

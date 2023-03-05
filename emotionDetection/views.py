@@ -5,6 +5,11 @@ from .models import UploadFile
 
 # Create your views here.
 def home(request):
+    """
+    Show the home page
+    :param request: http headers
+    :return: html object
+    """
     data = {
         'title': 'Emotion Detection'
     }
@@ -12,9 +17,15 @@ def home(request):
 
 
 def text_input(request):
-    print(request)
+    """
+    get the text from html and pass it to analysis.py file to detect the emotion
+    :param request: http headers
+    :return: html object
+    """
+    # print(request)
     if request.method == "POST":
         input_text = request.POST.get('text')
+        # call emotion detection function and pass text
         results = text_to_emotion(input_text)
 
         data = {
@@ -30,23 +41,30 @@ def text_input(request):
 
 
 def audio_input(request):
+    """
+    get the audio file from html and pass it to analysis.py file to detect the emotion
+    :param request: http headers
+    :return: html object
+    """
     # print(request)
     if request.method == "POST":
+        # get file from html
         input_text = request.FILES.get('video-file-upload')
         # print(input_text)
+        # save file as object in model
         file_obj = UploadFile()
         file_obj.file = input_text
         file_obj.save()
-        #
+        # Get last objects from database
         new_f = UploadFile.objects.last()
+        # url of file location
         add_url = str(new_f.file.url)
-        print(f'E:/NSU Project/project/audioTextClassification/{add_url[1:]}')
+        # F=file location of audio
+        # print(f'E:/NSU Project/project/audioTextClassification/{add_url[1:]}')
         path = f'E:/NSU Project/project/audioTextClassification/{add_url[1:]}'
-        # print()
-        # sound = AudioSegment.from_mp3(add_url[1:])
-        # print('')
-        # with open('../media/audio/death.mp3') as o
+        # pass file path to extract text from speech
         text = get_large_audio_transcription(path)
+        # call emotion detection function and pass text
         results = text_to_emotion(text)
         data = {
             'title': 'Result of Emotion Detection',
@@ -55,19 +73,8 @@ def audio_input(request):
             'top': results[0]
         }
         # print(data)
+        # after processing delete the object and file
         new_f.delete()
         return render(request, 'index.html', context=data)
-        # return redirect('emotionDetection:home')
     return redirect('emotionDetection:home')
 
-
-# def processing(request, text):
-#     results = text_to_emotion(text)
-#     data = {
-#         'title': 'Result of Emotion Detection',
-#         'results': results,
-#         'text': text,
-#         'top': results[0]
-#     }
-#     # print(data)
-#     return render(request, 'index.html', context=data)

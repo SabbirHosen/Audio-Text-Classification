@@ -5,6 +5,9 @@ import os
 
 # Create your models here.
 class UploadFile(models.Model):
+    """
+    Store file in folder
+    """
     file = models.FileField(upload_to='audio/')
 
 

@@ -73,72 +73,7 @@
                             </div>
                         </div>
                     {% endfor %}
-                    {#                    <div class="progress-group-header">#}
-                    {#                        <i class="cil-user progress-group-icon"></i>#}
-                    {#                        <div>Topic-2</div>#}
-                    {#                        <div class="ml-auto font-weight-bold">43%</div>#}
-                    {#                    </div>#}
-                    {#                    <div class="progress-group-bars">#}
-                    {#                        <div class="progress progress-xs">#}
-                    {#                            <div class="progress-bar bg-dark" role="progressbar" style="width: 43%" aria-valuenow="43"#}
-                    {#                                 aria-valuemin="0" aria-valuemax="100"></div>#}
-                    {#                        </div>#}
-                    {#                    </div>#}
-                    {#                    <div class="progress-group-header">#}
-                    {#                        <i class="cil-user progress-group-icon"></i>#}
-                    {#                        <div>Topic-3</div>#}
-                    {#                        <div class="ml-auto font-weight-bold">43%</div>#}
-                    {#                    </div>#}
-                    {#                    <div class="progress-group-bars">#}
-                    {#                        <div class="progress progress-xs">#}
-                    {#                            <div class="progress-bar bg-dark" role="progressbar" style="width: 43%" aria-valuenow="43"#}
-                    {#                                 aria-valuemin="0" aria-valuemax="100"></div>#}
-                    {#                        </div>#}
-                    {#                    </div>#}
-                    {#                    <div class="progress-group-header">#}
-                    {#                        <i class="cil-user progress-group-icon"></i>#}
-                    {#                        <div>Topic-4</div>#}
-                    {#                        <div class="ml-auto font-weight-bold">43%</div>#}
-                    {#                    </div>#}
-                    {#                    <div class="progress-group-bars">#}
-                    {#                        <div class="progress progress-xs">#}
-                    {#                            <div class="progress-bar bg-dark" role="progressbar" style="width: 43%" aria-valuenow="43"#}
-                    {#                                 aria-valuemin="0" aria-valuemax="100"></div>#}
-                    {#                        </div>#}
-                    {#                    </div>#}
-                    {#                    <div class="progress-group-header">#}
-                    {#                        <i class="cil-user progress-group-icon"></i>#}
-                    {#                        <div>Topic-5</div>#}
-                    {#                        <div class="ml-auto font-weight-bold">43%</div>#}
-                    {#                    </div>#}
-                    {#                    <div class="progress-group-bars">#}
-                    {#                        <div class="progress progress-xs">#}
-                    {#                            <div class="progress-bar bg-dark" role="progressbar" style="width: 43%" aria-valuenow="43"#}
-                    {#                                 aria-valuemin="0" aria-valuemax="100"></div>#}
-                    {#                        </div>#}
-                    {#                    </div>#}
-                    {#                    <div class="progress-group-header">#}
-                    {#                        <i class="cil-user progress-group-icon"></i>#}
-                    {#                        <div>Topic-6</div>#}
-                    {#                        <div class="ml-auto font-weight-bold">43%</div>#}
-                    {#                    </div>#}
-                    {#                    <div class="progress-group-bars">#}
-                    {#                        <div class="progress progress-xs">#}
-                    {#                            <div class="progress-bar bg-dark" role="progressbar" style="width: 43%" aria-valuenow="43"#}
-                    {#                                 aria-valuemin="0" aria-valuemax="100"></div>#}
-                    {#                        </div>#}
-                    {#                    </div>#}
-                    {#                    <div class="progress-group-header">#}
-                    {#                        <i class="cil-user progress-group-icon"></i>#}
-                    {#                        <div>Topic-7</div>#}
-                    {#                        <div class="ml-auto font-weight-bold">43%</div>#}
-                    {#                    </div>#}
-                    {#                    <div class="progress-group-bars">#}
-                    {#                        <div class="progress progress-xs">#}
-                    {#                            <div class="progress-bar bg-dark" role="progressbar" style="width: 43%" aria-valuenow="43"#}
-                    {#                                 aria-valuemin="0" aria-valuemax="100"></div>#}
-                    {#                        </div>#}
-                    {#                    </div>#}
+
                 </div>
             </div>
 
@@ -204,7 +139,7 @@
 <script>
     jQuery(function ($) {
         $(document).ajaxSend(function () {
-            $("spinner-border").fadeIn(5000);
+            $("spinner-border").fadeIn(500000);
 
             var loading = '<div class="spinner-border"></div>&nbsp;&nbsp; Please wait...'
             $("#send-button").html(loading);
@@ -218,7 +153,7 @@
                 }
             }).done(function () {
                 setTimeout(function () {
-                    $(".spinner-border").fadeOut(5000);
+                    $(".spinner-border").fadeOut(500000);
                 }, 700);
             });
         });
@@ -227,7 +162,7 @@
 <script>
     jQuery(function ($) {
         $(document).ajaxSend(function () {
-            $("spinner-border").fadeIn(5000);
+            $("spinner-border").fadeIn(500000);
 
             var loading = '<div class="spinner-border"></div>&nbsp;&nbsp; Please wait...'
             $("#send-button-video").html(loading);
@@ -241,7 +176,7 @@
                 }
             }).done(function () {
                 setTimeout(function () {
-                    $(".spinner-border").fadeOut(5000);
+                    $(".spinner-border").fadeOut(500000);
                 }, 700);
             });
         });
