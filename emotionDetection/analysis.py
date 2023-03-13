@@ -14,17 +14,20 @@ r = sr.Recognizer()
 pydub.AudioSegment.ffmpeg = "C:\\Users\\sabbi\\AppData\\Local\\ffmpegio\\ffmpeg-downloader\\ffmpeg\\bin"
 
 
-def text_to_emotion(text):
+def text_to_emotion(text: str):
     """
     :param text: str
     :return: dict
     Creating pipeline from Huggingface transformers model emotion classification
     model and tokenizer used from Huggingface Hub
     """
+    if len(text.split()) > 500:
+        tem = text.split()
+        text = ' '.join(tem[0:500])
     model = AutoModelForSequenceClassification.from_pretrained("j-hartmann/emotion-english-distilroberta-base")
     tokenizer = AutoTokenizer.from_pretrained("j-hartmann/emotion-english-distilroberta-base")
     classifier = pipeline("text-classification", model=model, tokenizer=tokenizer, top_k=None)
-    result = [{'label': r['label'], 'score': round((r['score'] * 100), 2)} for r in classifier(text)[0]]
+    result = [{'label': str(r['label']).capitalize(), 'score': round((r['score'] * 100), 2)} for r in classifier(text)[0]]
     return result
 
 

@@ -22,10 +22,10 @@
         <div class="row justify-content-center">
             <div class="col-md-6 col-lg-5">
                 <div class="upload-section hover-2">
-                    <h2>Type Text </h2>
+                    <h2>Type or Paste Your Text </h2>
                     <form method="post" action="{% url 'emotionDetection:text_input' %}"> {% csrf_token %}
                         <div class="form-group">
-                            <label for="text-file-upload">Select file to upload:</label>
+                            <label for="text-file-upload">Maximum Number of Word 500:</label>
                             <textarea type=" text" name="text" placeholder="Enter text..." class="form-control-file"
                                       oninput="auto_grow(this)"></textarea>
                         </div>
@@ -40,7 +40,7 @@
                     <h2>Upload Audio File</h2>
                     <form method="post" action="{% url 'emotionDetection:audio_input' %}" enctype='multipart/form-data'>{% csrf_token %}
                         <div class="form-group">
-                            <label for="video-file-upload">Select file to upload:</label>
+                            <label for="video-file-upload">Only .mp3 format and length <=2 minutes</label>
                             <input type="file" id="video-file-upload" name="video-file-upload"
                                    class="form-control-file" accept=".mp3">
                         </div>
@@ -62,7 +62,7 @@
                     {% for result in results %}
                         <div class="progress-group-header">
                             <i class="cil-user progress-group-icon"></i>
-                            <div>{{ result.label }}</div>
+                            <div><b>{{ result.label }}</b></div>
                             <div class="ml-auto font-weight-bold">{{ result.score }}%</div>
                         </div>
                         <div class="progress-group-bars">
