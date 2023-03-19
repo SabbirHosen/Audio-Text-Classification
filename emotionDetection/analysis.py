@@ -11,7 +11,10 @@ import shutil
 # create a speech recognition object
 r = sr.Recognizer()
 # To convert mp3 file format in WAV format we need ffmpeg for pydub
-pydub.AudioSegment.ffmpeg = "C:\\Users\\sabbi\\AppData\\Local\\ffmpegio\\ffmpeg-downloader\\ffmpeg\\bin"
+# pydub.AudioSegment.ffmpeg = "C:\\Users\\sabbi\\AppData\\Local\\ffmpegio\\ffmpeg-downloader\\ffmpeg\\bin"
+pydub.AudioSegment.converter = "C:\\Users\\sabbi\\AppData\\Local\\ffmpegio\\ffmpeg-downloader\\ffmpeg\\bin\\ffmpeg.exe"
+pydub.AudioSegment.ffmpeg = "C:\\Users\\sabbi\\AppData\\Local\\ffmpegio\\ffmpeg-downloader\\ffmpeg\\bin\\ffmpeg.exe"
+pydub.AudioSegment.ffprobe ="C:\\Users\\sabbi\\AppData\\Local\\ffmpegio\\ffmpeg-downloader\\ffmpeg\\bin\\ffprobe.exe"
 
 
 def text_to_emotion(text: str):
@@ -39,7 +42,12 @@ def get_large_audio_transcription(path):
     and apply speech recognition on each of these chunks
     """
     # open the audio file using pydub
-    sound = AudioSegment.from_mp3(path)
+    print(path)
+    # sound = AudioSegment.from_mp3(path)
+    try:
+        sound = AudioSegment.from_file(path, "mp3")
+    except:
+        sound = AudioSegment.from_file(path, format="mp4")
     # split audio sound where silence is 700 miliseconds or more and get chunks
     chunks = split_on_silence(sound,
                               # experiment with this value for your target audio file
